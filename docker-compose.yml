@@ -5,7 +5,7 @@ services:
     nginx:
         container_name: nginx
         build: ./nginx
-        image: cti/server
+        image: app/server
         restart: always
         ports:
             - "8000:8000"
@@ -13,12 +13,12 @@ services:
             - ./app:/srv/backend
             - ./log:/var/log/nginx
         depends_on:
-            - app
+            - django
 
-    app:
-        container_name: app
+    django:
+        container_name: django
         build: ./app
-        image: cti/backend
+        image: app/backend
         restart: always
         command: uwsgi --ini uwsgi.ini
         volumes:
