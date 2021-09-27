@@ -16,7 +16,7 @@ services:
             - app
 
     app:
-        container_name: django
+        container_name: app
         build: ./app
         image: cti/backend
         restart: always
