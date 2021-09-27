@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+
+    nginx:
+        container_name: nginx
+        build: ./nginx
+        image: cti/server
+        restart: always
+        ports:
+            - "8000:8000"
+        volumes:
+            - ./app:/srv/backend
+            - ./log:/var/log/nginx
+        depends_on:
+            - app
+
+    app:
+        container_name: django
+        build: ./app
+        image: cti/backend
+        restart: always
+        command: uwsgi --ini uwsgi.ini
+        volumes:
+            - ./app:/srv/backend
+            - ./log:/var/log/uwsgi
